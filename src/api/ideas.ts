@@ -8,8 +8,6 @@ export function getActivity(): Promise<Activity> {
 }
 
 export function getActivities(): Promise<Activity[]> {
-  console.log('getActivities!');
-
   try {
     const promises = [];
     for (let i = 0; i < 3; i++) {

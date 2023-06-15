@@ -1,6 +1,11 @@
 import '../../styles/challenges.scss';
+import { Activity } from 'types/Activity';
 
-export const Challenges = () => {
+type Props = {
+  challenges: Activity[];
+}
+
+export const Challenges:React.FC<Props> = ({ challenges }) => {
   return (
     <table className="challenges-table">
       <thead>
@@ -12,24 +17,23 @@ export const Challenges = () => {
         </tr>
       </thead>
       <tbody>
+      {challenges.length === 0 ? (
         <tr>
-          <td>1</td>
-          <td>Learn how to fold a paper crane</td>
-          <td>Education</td>
-          <td>Just now</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Make a bucket list</td>
-          <td>Busywork</td>
-          <td>2 hours ago</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Do something you used to do as a kid</td>
-          <td>Relaxation</td>
-          <td>1 day ago</td>
-        </tr>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      ) : (
+        challenges.map((challenge, index) => (
+        <tr key={challenge.key}>
+        <td>{index + 1}</td>
+        <td>{challenge.activity}</td>
+        <td>{challenge.type[0].toUpperCase() + challenge.type.slice(1)}</td>
+        <td>{challenge.timeAdded}</td>
+      </tr>
+      ))
+      )}
       </tbody>
     </table>
   )

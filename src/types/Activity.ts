@@ -6,4 +6,5 @@ export interface Activity {
   link: string;
   key: string;
   accessibility: number;
+  timeAdded: string;
 }

@@ -5,15 +5,15 @@
 
   type Props = {
     activities: Activity[];
+    addActivities: (activity: Activity) => void;
   }
 
-  export const Cards: React.FC<Props> = ({ activities }) => {
+  export const Cards: React.FC<Props> = ({ activities, addActivities }) => {
     return (
       <div className="card-row">
         {activities.map(activity => (
-        <Card key={activity.key} activity={activity} />
-      ))}
-        
+            <Card key={activity.key} activity={activity} addActivities={addActivities} />
+          ))}
       </div>
     )
   }
