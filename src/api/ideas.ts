@@ -1,20 +1,13 @@
 import { Activity } from "../types/Activity";
 
-const API_URL = `https://www.boredapi.com/api/activity`;
-
 export function getActivity(): Promise<Activity> {
-  return fetch(API_URL)
+  return fetch(process.env.REACT_APP_API_URL + '/activity' )
     .then(response => response.json());
 }
 
 export function getActivities(): Promise<Activity[]> {
   try {
-    const promises = [];
-    for (let i = 0; i < 3; i++) {
-      promises.push(getActivity());
-    }
-    const data = Promise.all(promises).then(fetchedActivities => fetchedActivities);
-
+    const data = Promise.all([getActivity(), getActivity(), getActivity()]).then(fetchedActivities => fetchedActivities);
     return data;
 
   } catch (error) {

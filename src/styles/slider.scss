@@ -1,70 +1,72 @@
-.carousel.carousel-slider {
-  margin: 0px auto;
-  overflow: visible;
-  border: 2px solid #ccc;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.carousel .slide {
-  color: rgba(0, 0, 0, 0.7);
-  background-color: #eaeaea;
-}
-
-.carousel .slide:hover {
-  cursor: pointer;
-}
-
-.carousel .slide-holder {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
-  height: 160px;
-  position: relative;
-}
-
-.carousel .slide-holder:not(.no-ideas)::before {
-  content: "";
-  position: absolute;
-  bottom: 40px;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  border-bottom: 1px dashed #ccc;
-}
-
-.carousel .text-container {
-  padding: 30px;
-  text-align: center;
-  
-  h2 {
-    margin-top: 0px;
-    margin-bottom: 10px;
+.carousel {
+  &.carousel-slider {
+    margin: 0 auto;
+    overflow: visible;
+    border: 2px solid #ccc;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
-  
-  p:last-child {
-    margin-bottom: 0px;
-    margin-top: auto;
+
+  & .slide {
+    color: rgba(0, 0, 0, 0.7);
+    background-color: #eaeaea;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
-}
 
-.carousel .control-dots {
-  bottom: -40px;
-}
+  & .slide-holder {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 160px;
+    position: relative;
 
-.carousel .thumbs-wrapper {
-  margin: 30px;
-}
+    &:not(.no-ideas)::before {
+      content: "";
+      position: absolute;
+      bottom: 40px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      border-bottom: 1px dashed #ccc;
+    }
+  }
 
-.carousel .slide-holder.no-ideas {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #f2f2f2;
-}
+  & .text-container {
+    padding: 30px;
+    text-align: center;
 
-.carousel .slide-holder.no-ideas h2 {
-  color: #999999;
+    & h2 {
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    & p:last-child {
+      margin-bottom: 0;
+      margin-top: auto;
+    }
+  }
+
+  & .control-dots {
+    bottom: -40px;
+  }
+
+  & .thumbs-wrapper {
+    margin: 30px;
+  }
+
+  & .slide-holder.no-ideas {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f2f2f2;
+
+    & h2 {
+      color: #999999;
+    }
+  }
 }
 
 .slider-theme {

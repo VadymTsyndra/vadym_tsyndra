@@ -19,21 +19,21 @@ export const Challenges:React.FC<Props> = ({ challenges }) => {
       <tbody>
       {challenges.length === 0 ? (
         <tr>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-      </tr>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
       ) : (
-        challenges.map((challenge, index) => (
-        <tr key={challenge.key}>
-        <td>{index + 1}</td>
-        <td>{challenge.activity}</td>
-        <td>{challenge.type[0].toUpperCase() + challenge.type.slice(1)}</td>
-        <td>{challenge.timeAdded}</td>
-      </tr>
-      ))
-      )}
+          challenges.map((challenge, index) => (
+            <tr key={challenge.key}>
+              <td>{index + 1}</td>
+              <td>{challenge.activity}</td>
+              <td>{challenge.type[0].toUpperCase() + challenge.type.slice(1)}</td>
+              <td>{challenge.timeAdded}</td>
+            </tr>
+          ))
+        )}
       </tbody>
     </table>
   )
