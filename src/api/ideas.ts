@@ -15,3 +15,18 @@ export function getActivities(): Promise<Activity[]> {
     throw error;
   }
 }
+
+export const saveData = (data: Activity[], apiUrl: string) => {
+  return fetch(`${apiUrl}/my-activities`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  });
+};
+
+export const getData = (apiUrl: string) => {
+  return fetch(`${apiUrl}/my-activities`);
+};
+

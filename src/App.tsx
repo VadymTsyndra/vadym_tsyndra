@@ -5,14 +5,17 @@ import { Cards } from './Components/Cards';
 import { Achievements } from './Components/Achievements';
 import { Challenges } from './Components/Challenges';
 import { Activity } from './types/Activity';
-import { getActivities } from './api/ideas';
+import { getActivities, saveData, getData } from './api/ideas';
 import { Slider } from './Components/Slider';
+
+const API_URL = 'http://localhost';
+const API_PORT = 3001;
 
 export const App: React.FC = () => {
   const [activities, setActivities] = useState<Activity[]>([]);
   const [listOfActivities, setListOfActivities] = useState<Activity[]>([]);
   const [selectedItem, setSelectedItem] = useState(0);
-  const [achievements, setAchievements] = useState<{ [key: string]: number }>(() => {
+  const [achievements, setAchievements] = useState<{ [key: string ]: number }>(() => {
     const achievementsData = localStorage.getItem('achievements');
     if (achievementsData) {
       return JSON.parse(achievementsData);
@@ -36,9 +39,32 @@ export const App: React.FC = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
 
+  const isCardsUnique = (arr: Activity[]) => {
+    const keys: String[] = [];
+  
+    for (let i = 0; i < arr.length; i++) {
+      if (keys.includes(arr[i].key)) {
+        return false;
+      }
+      keys.push(arr[i].key);
+    }
+  
+    return true;
+  };
+
   useEffect(() => {
-    getActivities().then(data => setActivities(data));
-  }, []);
+  const fetchData = () => {
+    getActivities().then(data => {
+      if (!isCardsUnique(data)) {
+        fetchData();
+      } else {
+        setActivities(data);
+      }
+    });
+  };
+
+  fetchData();
+}, []);
 
   useEffect(() => {
     localStorage.setItem('achievements', JSON.stringify(achievements));
@@ -48,8 +74,49 @@ export const App: React.FC = () => {
     localStorage.setItem('challenges', JSON.stringify(challenges));
   }, [challenges]);
 
+  const handleSaveData = () => {
+    saveData(challenges, `${API_URL}:${API_PORT}`)
+      .then(() => {
+        alert('Data saved successfully!');
+      })
+      .catch(error => {
+        console.error('Error saving data:', error);
+        alert('Failed to save data. Please try again.');
+      });
+  };
+  
+  const handleGetData = () => {
+    getData(`${API_URL}:${API_PORT}`)
+      .then(response => response.json())
+      .then(data => {
+        setChallenges(data);
+
+        const updatedAchievements = {
+          'recreational': 0,
+          'social': 0,
+          'education': 0,
+          'sport': 0,
+          'relaxation': 0
+        };
+  
+        data.forEach((activity: Activity) => {
+          const type: keyof typeof updatedAchievements = activity.type as keyof typeof updatedAchievements;
+          updatedAchievements[type] += 1;
+        });
+        
+  
+        setAchievements(updatedAchievements);
+      })
+      .catch(error => {
+        console.error('Error getting data:', error);
+        alert('Failed to get data. Please try again.');
+      });
+  };
+  
+  
+
   const isActivitiesEmpty = () => {
-    if (activities.length === 1) {
+    if (activities.length <= 1) {
       setIsLoading(true);
       getActivities()
         .then(data => setActivities(data))
@@ -62,16 +129,11 @@ export const App: React.FC = () => {
   }
 
   const addActivitiesToTheList = (activity: Activity) => {
-    if (listOfActivities.some(item => item.key === activity.key)) {
-      deleteActivities(activity);
-      isActivitiesEmpty();
-      return;
-    }
-
     if (listOfActivities.length > 20) {
       alert('Too many ideas in your list');
       return;
     }
+
     setListOfActivities([...listOfActivities, activity]);
     deleteActivities(activity);
 
@@ -126,7 +188,12 @@ export const App: React.FC = () => {
       <div className="block">
         <h2 className="block-title">Completed Challenges</h2>
         <Challenges challenges={challenges} />
+        <div className="button-container">
+          <button className="button-container__button" onClick={handleSaveData}>Save Data</button>
+          <button className="button-container__button" onClick={handleGetData}>Get Data</button>
+        </div>
       </div>
+
     </div>
   );
 };
