@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import { Cards } from './Components/Cards';
-import { Achievements } from './Components/Achievements';
-import { Challenges } from './Components/Challenges';
+import { Cards } from './components/ActivitiesCards';
+import { Achievements } from './components/Achievements';
+import { Challenges } from './components/Challenges';
 import { Activity } from './types/Activity';
 import { getActivities, saveData, getData } from './api/ideas';
-import { Slider } from './Components/Slider';
+import { Slider } from './components/ActivitiesSlider';
 
 const API_URL = 'http://localhost';
 const API_PORT = 3001;

@@ -1,46 +1,7 @@
-# Getting Started with Create React App
+This project is a React application written in TypeScript and SCSS. It features a "Choose fresh ideas to do" section where cards are loaded from an API server. The user can select one of the cards, which then falls into a slider component. Clicking on a card within the slider adds it to the "challenges" table as a completed task. Additionally, one point is added to the "achievements" section based on the theme of the completed task.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The "achievements" section consists of five circles, each representing a different theme. The number of points allocated to each theme depends on the tasks completed within that theme.
 
-## Available Scripts
+The application also utilizes local storage to store data. The backend part of the project is connected to a MongoDB database. Underneath the table, there are two buttons: "Save Data" and "Get Data". Clicking "Save Data" saves information about the user's achievements to the database. Even if the local storage is cleared, clicking "Get Data" retrieves the saved information from the database.
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Overall, this application allows users to select ideas, complete tasks, earn achievements, and store and retrieve data using local storage and a MongoDB database.
